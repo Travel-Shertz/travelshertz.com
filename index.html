@@ -10,7 +10,10 @@
   * { box-sizing:border-box; margin:0; }
   body { font-family:'Trebuchet MS', 'Segoe UI', sans-serif; background:var(--sand); color:var(--ink); line-height:1.65; }
   .wrap { max-width:980px; margin:0 auto; padding:0 1.5rem; }
-  header { background:linear-gradient(180deg, var(--deep), #157287); color:#fff; }
+  header { background:linear-gradient(180deg, var(--deep) 0%, #10606f 55%, #157287 100%); color:#fff; position:relative; overflow:hidden; }
+  header .wrap { position:relative; z-index:2; }
+  .mtns { position:absolute; left:0; right:0; bottom:-2px; width:100%; height:46%; min-height:180px; z-index:1; pointer-events:none; }
+  .sun { position:absolute; top:14%; right:12%; width:110px; height:110px; border-radius:50%; background:radial-gradient(circle, rgba(224,164,88,.85), rgba(224,164,88,0) 70%); z-index:0; }
   nav { display:flex; justify-content:space-between; align-items:center; padding:1.1rem 0; }
   .logo { font-weight:700; font-size:1.25rem; letter-spacing:.12em; text-transform:uppercase; }
   .logo span { color:var(--sun); }
@@ -52,17 +55,22 @@
 <header>
   <div class="wrap">
     <nav>
-      <div class="logo">Travel <span>Shertz</span></div>
+      <div class="logo"><img src="/logo-white.png" alt="Travel Shertz" style="height:84px;width:auto;display:block;"></div>
       <div><a href="#collections">Collections</a><a href="#contact">Contact</a></div>
     </nav>
     <div class="hero">
-      <img src="/logo-white.png" alt="Travel Shertz logo" style="height:190px;width:auto;">
       <h1>Wear the <em>journey</em>.</h1>
       <p>Travel-themed apparel and goods for people who measure life in places, not things.</p>
       <a class="cta" href="#contact">Get In Touch</a>
     </div>
   </div>
-  <svg class="wave" viewBox="0 0 1440 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,20 C240,40 480,0 720,15 C960,30 1200,5 1440,20 L1440,38 L0,38 Z" fill="#f6f1e7"/></svg>
+  <div class="sun"></div>
+  <svg class="mtns" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,210 L160,120 L260,180 L390,70 L540,190 L660,110 L800,200 L1000,90 L1150,190 L1300,130 L1440,190 L1440,320 L0,320 Z" fill="rgba(255,255,255,.10)"/>
+    <path d="M0,250 L120,180 L280,240 L430,150 L600,250 L760,170 L920,255 L1090,160 L1240,240 L1370,190 L1440,230 L1440,320 L0,320 Z" fill="rgba(9,53,64,.55)"/>
+    <path d="M0,290 L180,230 L340,285 L520,215 L720,290 L900,235 L1080,295 L1260,230 L1440,280 L1440,320 L0,320 Z" fill="rgba(6,42,51,.85)"/>
+  </svg>
+  <svg class="wave" viewBox="0 0 1440 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="position:relative;z-index:3;"><path d="M0,20 C240,40 480,0 720,15 C960,30 1200,5 1440,20 L1440,38 L0,38 Z" fill="#f6f1e7"/></svg>
 </header>
 
 <section id="collections">
