@@ -1,0 +1,45 @@
+# Shared "Site checks" workflow for the static GitHub Pages sites.
+#
+# Add to each repo as:
+#   .github/workflows/site-checks.yml
+#   .github/scripts/site_checks.py        
+#   .github/scripts/pagespeed_check.py    
+#
+# Store PAGESPEED_API_KEY as a repo or org secret. The workflow never prints it.
+# Optional env overrides on the PageSpeed step:
+#   PSI_PERF_THRESHOLD      (default 0.5)
+#   PSI_CATEGORY_THRESHOLD  (default 0.8)  — accessibility, SEO, best-practices
+#
+# PageSpeed Insights is run against the live homepage from CNAME (the published
+# main site), not the pull-request branch.
+
+name: Site checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-checks:
+    name: site-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: HTML sanity, internal links, and JSON-LD
+        run: python3 .github/scripts/site_checks.py --root .
+
+      - name: PageSpeed Insights (live homepage on main)
+        if: success() || failure()
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+          PSI_PERF_THRESHOLD: "0.5"
+          PSI_CATEGORY_THRESHOLD: "0.8"
+        run: python3 .github/scripts/pagespeed_check.py --root .
